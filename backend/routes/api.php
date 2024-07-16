@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -39,4 +40,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/product', [ProductController::class, 'store']);
     Route::put('/product/{user_id_seller}/{id}', [ProductController::class, 'update']);
     Route::delete('/product/{user_id_seller}/{id}', [ProductController::class, 'delete']);
+});
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('/keranjang/{user_id_buyer}', [KeranjangController::class, 'index']);
+    Route::post('/keranjang/{user_id_buyer}/{product_id}', [KeranjangController::class, 'store']);
+    Route::delete('/keranjang/{user_id_buyer}/{product_id}', [KeranjangController::class, 'delete']);
+    Route::get('/keranjang/checked/{user_id_buyer}/{product_id}/{checked}', [KeranjangController::class, 'checked']);
 });

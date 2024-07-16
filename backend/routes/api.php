@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BelanjaController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
@@ -42,9 +43,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/product/{user_id_seller}/{id}', [ProductController::class, 'delete']);
 });
 
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/keranjang/{user_id_buyer}', [KeranjangController::class, 'index']);
     Route::post('/keranjang/{user_id_buyer}/{product_id}', [KeranjangController::class, 'store']);
     Route::delete('/keranjang/{user_id_buyer}/{product_id}', [KeranjangController::class, 'delete']);
     Route::get('/keranjang/checked/{user_id_buyer}/{product_id}/{checked}', [KeranjangController::class, 'checked']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/belanja/{user_id_seller}', [BelanjaController::class, 'index']);
 });

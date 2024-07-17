@@ -53,3 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/belanja/{user_id_seller}', [BelanjaController::class, 'index']);
 });
+
+Route::get('/jidan/test', function (Request $request) {
+    return response()->json([
+        'nama' => $request->nama,
+        'umur' => $request->umur,
+    ]);
+});

@@ -3,13 +3,12 @@ import axios from "@/axios";
 
 export default createStore({
   actions: {
-    jidanTest(context, data) {
+    registerSubmit(context, data) {
       return new Promise((resolve, reject) => {
-        axios.get('/jidan/test', {
-          params: {
-            nama: data.nama,
-            umur: data.umur,
-          }
+        axios.post('/register', {
+          name: data.name,
+          email: data.email,
+          password: data.password,
         })
         .then(response => {
           resolve(response);

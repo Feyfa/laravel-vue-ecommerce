@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'utama': 'url("@/assets/img/bg-utama.jpg")'
+      }
+    },
+    fontFamily: {
+      'poppins': ['Poppins', 'sans-serif']
+    }
   },
   plugins: [],
 }

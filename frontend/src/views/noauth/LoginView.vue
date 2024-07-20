@@ -155,6 +155,11 @@ export default {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
+            /* UPDATE PENGAMBILAN DARI LOCALSTORAGE */
+            this.$store.dispatch('fetchTokenFromLocalStorage');
+            this.$store.dispatch('fetchUserFromLocalStorage');
+            /* UPDATE PENGAMBILAN DARI LOCALSTORAGE */
+
             this.$router.push('/');
           }
         })
@@ -180,7 +185,8 @@ export default {
           else if(error.response.data.status == 401) {
             ElNotification({
               type: 'error',
-              title: error.response.data.message
+              title: 'error',
+              message: error.response.data.message
             });
           }
           

@@ -21,6 +21,34 @@ export default createStore({
       this.state.user = JSON.parse(localStorage.getItem('user'));
     },
 
+    deleteImage(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.delete(`/user/image`, {
+          params: {
+            img: data.img
+          }
+        })
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+      });
+    },
+
+    uploadImageUser(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post('/user/image', data)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      })
+    },
+
     logoutSubmit(context, data) {
       return new Promise((resolve, reject) => {
         axios.post('/logout')

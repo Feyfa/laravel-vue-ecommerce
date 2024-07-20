@@ -37,13 +37,21 @@ const router = createRouter({
       component: () => import('../views/auth/HomeView.vue'),
       meta: {public: false}
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('../views/auth/ProfileView.vue'),
+      meta: {public: false}
+    },
     /* AUTH */
   ],
 });
 
 router.beforeEach((to, from, next) => {
+  /* REFRESH GET ITEM LOCALSTORAGE */
   store.dispatch('fetchTokenFromLocalStorage');
   store.dispatch('fetchUserFromLocalStorage');
+  /* REFRESH GET ITEM LOCALSTORAGE */
 
   // ambil token
   const token = localStorage.getItem('token');

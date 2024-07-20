@@ -90,7 +90,7 @@
       </div>
 
       <div class="flex justify-end mt-3">
-          <a href="/login" class="underline text-blue-700">login</a>
+          <router-link to="/login" class="underline text-blue-700">login</router-link>
       </div>
 
       <button 
@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
 import { ElNotification } from 'element-plus';
 
 export default {
@@ -156,13 +157,13 @@ export default {
 
     registerSubmit() {
       /* VALIDATION INPUT */
-      if(this.name.trim() === '' || this.name.trim() === '' || this.name.trim() === '') {
+      if(this.name.trim() === '' || this.email.trim() === '' || this.password.trim() === '') {
         if(this.name.trim() === '')
           this.errors.name = 'input name is required';
         if(this.email.trim() === '')
-          this.errors.email = 'input name is required';
+          this.errors.email = 'input email is required';
         if(this.password.trim() === '')
-          this.errors.password = 'input name is required';
+          this.errors.password = 'input password is required';
       }
       /* VALIDATION INPUT */
 
@@ -199,8 +200,8 @@ export default {
           
           Object.keys(message).forEach(key => {
             switch(key) {
-              case 'email' :
-                this.errors.email = message[key][0];
+              case 'name' :
+                this.errors.name = message[key][0];
                 break;
               case 'email' : 
                 this.errors.email = message[key][0];

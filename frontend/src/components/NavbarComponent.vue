@@ -5,11 +5,32 @@
         <button
             type="button"
             name="logout_submit"
-            class="text-white border-2 border-neutral-300 w-24 py-1.5 rounded bg-red-500 hover:bg-[#ff4d4d]">Logout</button>
+            class="text-white border-2 border-neutral-300 w-24 py-1.5 rounded bg-red-500 hover:bg-[#ff4d4d]"
+            @click="logoutSubmit">Logout</button>
     </form>
   </header>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    logoutSubmit() {
+      this.$store.dispatch('logoutSubmit')
+                 .then(response => {
+                  // console.log(response);
+
+                  if(response.data.status == 200) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+
+                    this.$router.push('/login');
+                  }
+
+                 })
+                 .catch(error => {
+                  console.error(error);
+                 });
+    }
+  }
+}
 </script>

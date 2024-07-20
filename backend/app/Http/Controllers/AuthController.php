@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function tokenValidation()
+    {
+        return response()->json(['status' => 200, 'message' => 'token valid'], 200);
+    }
+
     public function register(Request $request)
     {
         /* VALIDATE AND GET */

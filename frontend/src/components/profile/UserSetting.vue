@@ -121,7 +121,7 @@
         class="w-5" 
         :class="{
           'opacity-50 cursor-no-drop': isProcessUpdate || errors.name || errors.email,
-          'cursor-ppointer': !isProcessUpdate || !errors.name || !errors.email,
+          'cursor-pointer': !isProcessUpdate || !errors.name || !errors.email,
         }"
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 1024 1024" 

@@ -105,11 +105,8 @@
     <div class="mt-5 flex justify-end items-center gap-5">
       <svg 
         v-if="isEdit"
-        class="w-5" 
-        :class="{
-          'opacity-50 cursor-no-drop': isProcessUpdate, 
-          'cursor-pointer': !isProcessUpdate
-        }"
+        class="w-5 cursor-pointer" 
+        :class="{'opacity-50': isProcessUpdate}"
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 1024 1024" 
         @click="cancelInput">
@@ -118,11 +115,8 @@
 
       <svg 
         v-if="isEdit"
-        class="w-5" 
-        :class="{
-          'opacity-50 cursor-no-drop': isProcessUpdate || errors.name || errors.email,
-          'cursor-pointer': !isProcessUpdate || !errors.name || !errors.email,
-        }"
+        class="w-5 cursor-pointer" 
+        :class="{'opacity-50': isProcessUpdate || errors.name || errors.email}"
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 1024 1024" 
         @click="updateInput">
@@ -132,8 +126,8 @@
 
       <svg 
         v-if="!isEdit"
-        class="w-5" 
-        :class="{'opacity-50': isProcessUpdate, 'cursor-pointer': !isProcessUpdate}"
+        class="w-5 cursor-pointer" 
+        :class="{'opacity-50': isProcessUpdate}"
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 1024 1024" 
         @click="editInput">
@@ -193,7 +187,6 @@ export default {
 
     cancelInput() {
       if(!this.isProcessUpdate) {
-        console.log('cancel input');
         this.isEdit = false;
         this.getUser();
         this.clearErrors();
@@ -203,7 +196,6 @@ export default {
     updateInput() {
       if(!this.isProcessUpdate && !this.errors.name && !this.errors.email) {
         this.isProcessUpdate = true;
-        console.log('updateInput');
   
         this.$store.dispatch('updateUser', {
           id: this.$store.getters.user.id,
@@ -214,7 +206,7 @@ export default {
           alamat: this.alamat,
         })
         .then(response => {
-          console.log(response);
+          // console.log(response);
   
           this.isEdit = false;
           this.isProcessUpdate = false;
@@ -237,7 +229,7 @@ export default {
   
         })
         .catch(error => {
-          console.error(error);
+          // console.error(error);
 
           this.isProcessUpdate = false;
   

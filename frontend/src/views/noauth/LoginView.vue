@@ -147,7 +147,7 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log(response);
+          // console.log(response);
 
           this.isProcessLogin = false;
 
@@ -164,7 +164,7 @@ export default {
           }
         })
         .catch(error => {
-          console.error(error);
+          // console.error(error);
 
           this.isProcessLogin = false;
           

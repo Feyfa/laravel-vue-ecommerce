@@ -177,7 +177,7 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log(response);
+          // console.log(response);
 
           this.isProcessRegister = false;
 
@@ -192,7 +192,7 @@ export default {
           }
         })
         .catch(error => {
-          console.error(error);
+          // console.error(error);
 
           this.isProcessRegister = false;
           

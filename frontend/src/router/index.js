@@ -91,13 +91,13 @@ router.beforeEach((to, from, next) => {
     axios.get('/tokenvalidation')
          // jika token valid, maka yaudah biarkan saja ke halaman yang dia ingin tuju
          .then(response => {
-          console.log(response)
+          // console.log(response)
           if(response.status === 200 && response.data.message === 'token valid')
             next();
          })
          // jika token tidak valid, maka paksa di ke wilayah yang belm di autentikasi
          .catch(error => {
-          console.error(error);
+          // console.error(error);
           if(error.response.status === 401 && error.response.data.message === 'Unauthenticated.') 
             next({name: 'login'});
          });  

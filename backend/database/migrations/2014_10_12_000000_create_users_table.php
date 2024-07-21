@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('img')->nullable();
             $table->string('name');
+            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->text('alamat')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -94,27 +95,42 @@ class UserController extends Controller
                response()->json(['status' => 404, 'message' => 'User Not Found'], 404) ;
     }
 
-    public function update(Request $request, string $id)
+    public function updateUser(Request $request, string $id)
     {
-        $user = User::where('id', $id)
-                    ->first();
-
-        /* VALIDATION USER */        
-        if(!$user)
-            return response()->json(['status' => 404, 'message' => 'User Not Found'], 404);
-
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'string', 'max:255', 'email'],
-        ]);
+        /* VALIDATION REQUEST AND GET */        
+        $validator = Validator::make(
+            [
+                'id' => $id,
+                'name' => $request->name,
+                'email' => $request->email,
+            ], 
+            [
+                'id' => ['required', 'integer'],
+                'name' => ['required', 'string'],
+                'email' => ['required', 'string', 'max:255', 'email', Rule::unique('users')->ignore($id)],
+            ]
+        );
         
         if($validator->fails())
-            return response()->json(['status' => 422, 'message' => $validator->messages()], 422);
-        /* VALIDATION USER */
+            return response()->json(['status' => 422, 'result' => 'error', 'message' => $validator->messages()], 422);
+
+        $validate = $validator->validate();
+        /* VALIDATION REQUEST AND GET */
+
+        /* VALIDATION USER EXISTS */
+        $user = User::where('id', $validate['id'])
+                    ->first();
+
+        if(!$user)
+            return response()->json(['status' => 404, 'message' => 'User Not Found'], 404);
+        /* VALIDATION USER EXISTS */
         
         /* UPDATE USER */
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name = $validate['name'];
+        $user->email = $validate['email'];
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->tanggal_lahir = $request->tanggal_lahir;
+        $user->alamat = $request->alamat;
         $user->save();
         /* UPDATE USER */
 

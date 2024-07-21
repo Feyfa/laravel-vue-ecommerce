@@ -98,10 +98,6 @@ export default {
     }
   },
 
-  computed: {
-    ...mapGetters(['user', 'token'])
-  },
-
   mounted() {
     if(this.$store.getters.user.img === null) {
       this.disable.deleteImage = true;

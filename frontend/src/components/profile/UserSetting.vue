@@ -177,7 +177,8 @@ export default {
 
     clearErrors() {
       this.errors = {
-        name: ''
+        name: '',
+        email: '',
       }
     },
 

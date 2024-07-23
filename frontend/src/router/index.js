@@ -43,6 +43,24 @@ const router = createRouter({
       component: () => import('../views/auth/ProfileView.vue'),
       meta: {public: false}
     },
+    {
+      path: '/product',
+      name: 'product',
+      component: () => import('../views/auth/ProductView.vue'),
+      meta: {public: false}
+    },
+    {
+      path: '/product/add',
+      name: 'product add',
+      component: () => import('../views/auth/ProductAddView.vue'),
+      meta: {public: false}
+    },
+    {
+      path: '/product/edit',
+      name: 'product edit',
+      component: () => import('../views/auth/ProductEditView.vue'),
+      meta: {public: false}
+    },
     /* AUTH */
   ],
 });

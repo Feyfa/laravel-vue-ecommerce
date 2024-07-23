@@ -38,6 +38,8 @@ export default {
     closeDropdown() {
       if(this.$global.isCLickDropdown.profile) 
         this.$global.isCLickDropdown.profile = false;
+      if(this.$global.isCLickDropdown.product) 
+        this.$global.isCLickDropdown.product = false;
     },
 
     showNavbarSidebar() {

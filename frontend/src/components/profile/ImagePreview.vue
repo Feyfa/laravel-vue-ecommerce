@@ -205,7 +205,8 @@ export default {
           title: "Delete Image",
           icon: "question",
           confirmButtonText: "Yes, delete it!",
-          showCancelButton: true
+          showCancelButton: true,
+          confirmButtonColor: '#dc3545'
         })
         .then(result => {
           if(result.isConfirmed) {

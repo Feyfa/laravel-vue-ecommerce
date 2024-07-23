@@ -21,6 +21,67 @@ export default createStore({
       this.state.user = JSON.parse(localStorage.getItem('user'));
     },
 
+    editProduct(context, data) {
+      return new Promise((resolve, reject) => {
+        // override method post to put
+        axios.post(`/product/${data.get('id')}`, data)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    getProduct(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/product/${data.user_id_seller}/${data.id_product}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    deleteProduct(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.delete(`/product/${data.user_id_seller}/${data.id_product}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    getProducts(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/product/${data.user_id_seller}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    addProduct(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post('/product', data)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
     updateUser(context, data) {
       return new Promise((resolve, reject) => {
         axios.put(`/user/${data.id}`, {

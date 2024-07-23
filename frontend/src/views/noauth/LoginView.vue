@@ -149,8 +149,6 @@ export default {
         .then(response => {
           // console.log(response);
 
-          this.isProcessLogin = false;
-
           if(response.data.status == 200) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -161,6 +159,8 @@ export default {
             /* UPDATE PENGAMBILAN DARI LOCALSTORAGE */
 
             this.$router.push('/');
+          } else {
+            this.isProcessLogin = false;
           }
         })
         .catch(error => {

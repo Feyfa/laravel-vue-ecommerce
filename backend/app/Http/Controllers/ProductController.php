@@ -58,12 +58,12 @@ class ProductController extends Controller
         /* VALIDATOR AND GET */
 
         /* GET ONE PRODUCT */
-        $products = Product::where('user_id_seller', $validate['user_id_seller'])
+        $product = Product::where('user_id_seller', $validate['user_id_seller'])
                            ->where('id', $validate['id'])
-                           ->get();
+                           ->first();
         /* GET ONE PRODUCT */
         
-        return response()->json(['status' => 200, 'products' => $products]);
+        return response()->json(['status' => 200, 'product' => $product]);
     }
 
     public function store(Request $request)
@@ -97,29 +97,33 @@ class ProductController extends Controller
         return response()->json(['status' => 200, 'message' => 'Add Product Success', 'products' => $products], 200);
     }
 
-    public function update(string $user_id_seller, string $id, Request $request)
+    public function update(string $id, Request $request)
     {
         /* VALIDATOR AND GET */
-        $validator = Validator::make(
-            [
-                'user_id_seller' => $user_id_seller,
-                'id' => $id,
-                'oldImg' => $request->oldImg,
-                'img' => $request->img,
-                'name' => $request->name,
-                'price' => $request->price,
-                'stock' => $request->stock
-            ],
-            [
-                'user_id_seller' => ['required', 'integer'],
-                'id' => ['required', 'integer'],
-                'oldImg' => ['required'],
-                'img' => ['image', 'file', 'max:1024', 'required'],
-                'name' => ['required', 'min:3'],
-                'price' => ['required', 'integer', 'min:1'],
-                'stock' => ['required', 'integer', 'min:1']
-            ]
-        );
+        $property = [
+            'id' => $id,
+            'oldImg' => $request->oldImg,
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock
+        ];
+        $rule = [
+            'id' => ['required', 'integer'],
+            'oldImg' => ['required'],
+            'name' => ['required', 'min:3'],
+            'price' => ['required', 'integer', 'min:1'],
+            'stock' => ['required', 'integer', 'min:1']
+        ];
+
+        if($request->file('img')) {
+            // Tambahkan img ke properti untuk validasi
+            $property['img'] = $request->file('img');
+
+            // Tambahkan aturan validasi untuk img
+            $rule['img'] = ['image', 'file', 'max:1024', 'required'];
+        }
+
+        $validator = Validator::make($property, $rule);
 
         if($validator->fails())
             return response()->json(['status' => 422, 'message' => $validator->messages()], 422);
@@ -127,29 +131,32 @@ class ProductController extends Controller
         $validate = $validator->validate();
         /* VALIDATOR AND GET */
 
+        /* UPDATE PRODUCT */
+        $product = Product::where('id', $validate['id'])
+                          ->first();
+        $product->name = $validate['name'];
+        $product->price = $validate['price'];
+        $product->stock = $validate['stock'];
+        $product->save();
+        /* UPDATE PRODUCT */
+
         /* DELETE IMG PROVIOUS AND ADD IMG */
         if($request->file('img'))
         {
-            if($validate['old_img'])
+            if($validate['oldImg'])
             {
-                Storage::delete($validate['old_img']);
+                Storage::delete($validate['oldImg']);
+                
+                $validate['img'] = $request->file('img')->store('product-imgs');
+    
+                $product->img = $validate['img'];
+                $product->save();
             }
 
-            $validate['img'] = $request->file('img')->store('product-imgs');
         }
         /* DELETE IMG PROVIOUS AND ADD IMG */
 
-        /* UPDATE PRODUCT */
-        Product::where('id', $validate['id'])
-               ->update($validate);
-        /* UPDATE PRODUCT */
-
-        /* GET PRODUCT */
-        $products = Product::where('user_id_seller', $validate['user_id_seller'])
-                           ->get();
-        /* GET PRODUCT */
-
-        return response()->json(['status' => 200, 'message' => 'Update Product Success', 'products' => $products]);
+        return response()->json(['status' => 200, 'message' => 'Update Product Success', 'product' => $product]);
     }
 
     public function delete(string $user_id_seller, string $id)
@@ -179,7 +186,7 @@ class ProductController extends Controller
         $product = Product::where('id', $validate['id'])
                           ->first();
 
-        // Storage::delete($product->img);
+        Storage::delete($product->img);
 
         $product->delete();
         /* DELETE */

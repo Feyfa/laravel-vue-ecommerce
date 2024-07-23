@@ -18,7 +18,7 @@
         <router-link 
             to="/user" 
             class="link-sidebar transition-all duration-300 hover:underline"
-            :class="{'underline': (this.$route.path === '/user')}">
+            :class="{'underline': (this.$route.path.startsWith('/user'))}">
             User
         </router-link>
     </li>   
@@ -29,7 +29,7 @@
         <router-link 
             to="/product" 
             class="link-sidebar transition-all duration-300 hover:underline"
-            :class="{'underline': (this.$route.path === '/product')}">
+            :class="{'underline': (this.$route.path.startsWith('/product'))}">
             Product
         </router-link>
     </li>
@@ -41,7 +41,7 @@
         <router-link 
             to="/belanja" 
             class="link-sidebar transition-all duration-300 hover:underline"
-            :class="{'underline': (this.$route.path === '/belanja')}">
+            :class="{'underline': (this.$route.path.startsWith('/belanja'))}">
             Belanja
         </router-link>
     </li>
@@ -52,7 +52,7 @@
         <router-link 
             to="/keranjang" 
             class="link-sidebar transition-all duration-300 hover:underline"
-            :class="{'underline': (this.$route.path === '/keranjang')}">
+            :class="{'underline': (this.$route.path.startsWith('/keranjang'))}">
             Keranjang
         </router-link>
     </li>

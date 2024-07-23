@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/product/{user_id_seller}', [ProductController::class, 'index']);
     Route::get('/product/{user_id_seller}/{id}', [ProductController::class, 'show']);
     Route::post('/product', [ProductController::class, 'store']);
-    Route::put('/product/{user_id_seller}/{id}', [ProductController::class, 'update']);
+    Route::put('/product/{id}', [ProductController::class, 'update']);
     Route::delete('/product/{user_id_seller}/{id}', [ProductController::class, 'delete']);
 });
 

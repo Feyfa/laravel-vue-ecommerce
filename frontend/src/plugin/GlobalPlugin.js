@@ -8,7 +8,7 @@ const GlobalPlugin = {
       personImage: PersonImage,
       isCLickDropdown: {
         profile: false,
-        navbar: false
+        product: false
       }
     });
 

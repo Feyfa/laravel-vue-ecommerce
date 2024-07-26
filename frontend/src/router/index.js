@@ -61,6 +61,18 @@ const router = createRouter({
       component: () => import('../views/auth/ProductEditView.vue'),
       meta: {public: false}
     },
+    {
+      path: '/belanja',
+      name: 'belanja',
+      component: () => import('../views/auth/BelanjaView.vue'),
+      meta: {public: false}
+    },
+    {
+      path: '/keranjang',
+      name: 'keranjang',
+      component: () => import('../views/auth/KeranjangView.vue'),
+      meta: {public: false}
+    },
     /* AUTH */
   ],
 });

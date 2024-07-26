@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('keranjangs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('user_id_buyer')->constrained('users');
+            $table->bigInteger('user_id_seller');
+            $table->bigInteger('user_id_buyer');
+            $table->bigInteger('product_id');
             $table->boolean('checked')->default(false);
             $table->timestamps();
         });

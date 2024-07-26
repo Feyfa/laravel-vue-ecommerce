@@ -48,18 +48,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/keranjang/{user_id_buyer}', [KeranjangController::class, 'index']);
-    Route::post('/keranjang/{user_id_buyer}/{product_id}', [KeranjangController::class, 'store']);
+    Route::post('/keranjang/{user_id_seller}/{user_id_buyer}/{product_id}', [KeranjangController::class, 'store']);
     Route::delete('/keranjang/{user_id_buyer}/{product_id}', [KeranjangController::class, 'delete']);
-    Route::get('/keranjang/checked/{user_id_buyer}/{product_id}/{checked}', [KeranjangController::class, 'checked']);
+    Route::post('/keranjang/checked/{user_id_buyer}/{product_id}/{checked}', [KeranjangController::class, 'checked']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/belanja/{user_id_seller}', [BelanjaController::class, 'index']);
-});
-
-Route::get('/jidan/test', function (Request $request) {
-    return response()->json([
-        'nama' => $request->nama,
-        'umur' => $request->umur,
-    ]);
 });

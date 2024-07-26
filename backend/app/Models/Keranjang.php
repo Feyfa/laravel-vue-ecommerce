@@ -11,6 +11,7 @@ class Keranjang extends Model
 
     protected $fillable = [
         'product_id',
+        'user_id_seller',
         'user_id_buyer',
         'checked',
     ];

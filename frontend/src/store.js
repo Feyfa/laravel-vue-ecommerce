@@ -21,6 +21,66 @@ export default createStore({
       this.state.user = JSON.parse(localStorage.getItem('user'));
     },
 
+    deleteKeranjang(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.delete(`/keranjang/${data.user_id_buyer}/${data.product_id}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    checkedKeranjang(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post(`/keranjang/checked/${data.user_id_buyer}/${data.product_id}/${data.checked}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    getKeranjang(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/keranjang/${data.user_id_buyer}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    addKeranjang(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post(`/keranjang/${data.user_id_seller}/${data.user_id_buyer}/${data.product_id}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
+    getBelanja(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/belanja/${data.user_id_seller}`)
+             .then(response => {
+              resolve(response);
+             })
+             .catch(error => {
+              reject(error);
+             })
+      });
+    },
+
     editProduct(context, data) {
       return new Promise((resolve, reject) => {
         // override method post to put
